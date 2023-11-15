@@ -1,9 +1,11 @@
 const express = require("express");
 const cors = require("cors");
 const svgBadge = require("./frontend/src/svgBadge");
-const { port, mongourl } = require('./config.json');
-// const port=process.env.PORT;
-// const mongourl=process.env.MONGODB_URI;
+// const { port, mongourl } = require('./config.json');
+
+require('dotenv').config();
+const port=process.env.PORT;
+const mongourl=process.env.MONGODB_URI;
 
 // Create an express instance and setup middlewares
 const app = express();
