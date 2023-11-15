@@ -1,0 +1,67 @@
+.app {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px rgb(214, 214, 214);
+    border-radius: 10px;
+    padding: 2rem;
+    padding-bottom: 1rem !important;
+    gap: 10px;
+    margin: 20px;
+}
+
+.checkboxLabel {
+    transform: translateY(-2rem);
+}
+
+.customize {
+    font-weight: bold;
+    font-size: 1.7rem;
+    margin-bottom: 1.5rem;
+}
+
+.badge {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    width: 15rem;
+}
+
+.bottomLinks {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.copyButtons Button:first-of-type {
+    margin-right: 0.5rem;
+}
+
+.customizeInput {
+    margin-bottom: 15px !important;
+    width: min(380px, 75vw);
+}
+
+.customizeInput:nth-last-of-type(2) {
+    margin-bottom: 0px !important;
+}
+
+.customizeInputSwitch {
+    height: 10px;
+    margin-bottom: 15px;
+}
+
+.opacityWrap{
+    display: flex;
+    flex-direction: row;
+    white-space:nowrap;
+}
+
+.opacitySlider{
+    transform: translateY(5px);
+}
