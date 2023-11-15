@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const svgBadge = require("./frontend/src/svgBadge");
+const svgBadge = require("./svgBadge");
 // const { port, mongourl } = require('./config.json');
 
 require('dotenv').config();
@@ -11,7 +11,8 @@ const mongourl=process.env.MONGODB_URI;
 const app = express();
 app.use(express.json());
 app.use(cors());
-app.use(express.static(__dirname + '/frontend/build'));
+// app.use(express.static(__dirname + '/frontend/build'));
+
 
 // Initilize mongoDB connection
 const mongoose = require('mongoose');
