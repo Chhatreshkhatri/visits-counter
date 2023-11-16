@@ -57,3 +57,6 @@ async function processSVG(req, res) {
 // });
 app.get("/:uniqueID", (req, res) => processSVG(req, res));
 app.listen(port, () => console.log(`Ready on port ${port}.`));
+app.get("/fonts/PoppinsBold.woff2", (req, res) => {
+  res.sendFile(path.join(__dirname, "/astro/src/fonts/PoppinsBold.woff2"));
+});
