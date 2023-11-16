@@ -1,5 +1,5 @@
 const express = require("express");
-const cors = require("cors");
+// const cors = require("cors");
 const svgBadge = require("./svgBadge");
 // const { port, mongourl } = require('./config.json');
 require("dotenv").config();
@@ -9,7 +9,7 @@ const mongourl = process.env.MONGODB_URI;
 // Create an express instance and setup middlewares
 const app = express();
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
 app.use(express.static(__dirname + '/react-app/build'));
 
 // Initilize mongoDB connection
