@@ -72,10 +72,10 @@ function svgBadge(label, shadow, opacity, swap, labelBGColor, countBGColor, labe
 
     // Main SVG template
     let svg = `
-    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 ${visitsWidth + countWidth + 7.5 -3-1} 20" xml:space="preserve">
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 ${visitsWidth + countWidth + 2.5} 20" xml:space="preserve">
     <g id="badge">
         <path fill="#${labelBGColor}" d="M46.11,20H3c-2.21,0-4-1.79-4-4V4c0-2.21,1.79-4,4-4h${visitsWidth -3}V20z"/>
-        <path fill="#${countBGColor}" d="M46.11,20H${visitsWidth + countWidth -0.5}c2.21,0,4-1.79,4-4V4c0-2.21-1.79-4-4-4H${visitsWidth }V20z"/>
+        <path fill="#${countBGColor}" d="M46.11,20H${visitsWidth + countWidth -1.5}c2.21,0,4-1.79,4-4V4c0-2.21-1.79-4-4-4H${visitsWidth }V20z"/>
         ${shadowTemplate}
         <text transform="matrix(1 0 0 1 ${visitsWidth + 6.4} ${(shadow === "1") ? '13.4559' : '13.8'})" fill="#${countTextColor}" font-family="Arial" font-size="10px">${visits}</text>
         <text transform="matrix(1 0 0 1 4 ${(shadow === "1") ? '13.4559' : '13.8'})" fill="#${labelTextColor}" font-family="Arial" font-size="10px">${label}</text>
