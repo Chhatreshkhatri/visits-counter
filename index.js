@@ -10,7 +10,7 @@ const mongourl = process.env.MONGODB_URI;
 const app = express();
 app.use(express.json());
 app.use(cors());
-app.use(express.static(__dirname + '/astro/dist'));
+app.use(express.static(__dirname + '/react-app/build'));
 
 // Initilize mongoDB connection
 const mongoose = require("mongoose");
@@ -30,23 +30,24 @@ app.use(function (req, res, next) {
 
 async function processSVG(req, res) {
   // Get values from query and parameter
-  const labelBGColor = req.query.labelBGColor || "484848";
-  const countBGColor = req.query.countBGColor || "1CA2F1";
-  const labelTextColor = req.query.labelTextColor || "FFFFFF";
-  const countTextColor = req.query.countTextColor || "FFFFFF";
-  const shadow = req.query.shadow || "1";
-  const shadowOpacity = req.query.shadowOpacity || "30";
+  const labelBGColor = req.query.LBGC || "484848";
+  const countBGColor = req.query.CBGC || "1CA2F1";
+  const labelTextColor = req.query.LTC || "FFFFFF";
+  const countTextColor = req.query.CTC || "FFFFFF";
+  const shadowLabel = req.query.LSHW || "1";
+  const shadowCount = req.query.CSHW || "1";
+  const shadowOpacity = req.query.SHWO || "30";
   const label = req.query.label || "VISITS";
-  const uniqueID = req.params.uniqueID;
+  const uniqueID = req.params.uID;
   const swap = req.query.swap || "0";
-  const passKey = req.query.passKey || uniqueID;
-  const setIDCount = req.query.setIDCount || "0";
+  const passKey = req.query.PK || uniqueID;
+  const setIDCount = req.query.SETC || "0";
 
   // Get the current visits count
   const visits = await database.visitsBadge(uniqueID, setIDCount, passKey);
 
   // Create the SVG Badge
-  let svg = svgBadge(label, shadow, shadowOpacity, swap, labelBGColor, countBGColor, labelTextColor, countTextColor, visits);
+  let svg = svgBadge(label, shadowLabel, shadowCount, shadowOpacity, swap, labelBGColor, countBGColor, labelTextColor, countTextColor, visits);
 
   // Send the SVG Badge
   res.setHeader("Content-Type", "image/svg+xml");
@@ -55,7 +56,7 @@ async function processSVG(req, res) {
 // app.get('/', (req, res) => {
 //   res.sendFile(__dirname + '/index.html');
 // });
-app.get("/:uniqueID", (req, res) => processSVG(req, res));
+app.get("/:uID", (req, res) => processSVG(req, res));
 app.listen(port, () => console.log(`Ready on port ${port}.`));
 app.get("/fonts/PoppinsBold.woff2", (req, res) => {
   res.sendFile(path.join(__dirname, "/astro/src/fonts/PoppinsBold.woff2"));

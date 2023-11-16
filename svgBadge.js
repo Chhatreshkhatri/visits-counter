@@ -3,14 +3,24 @@ const approxWidth = (str) => {
   let size = 0;
   for (let i = 0; i < str.length; i++) {
     let s = str[i];
-    if ("lij|' ".includes(s)) size += 37;
-    else if ("![]fI.,:;/\\t".includes(s)) size += 50;
-    else if ('`-(){}r"'.includes(s)) size += 60;
-    else if ("*^zcsJkvxy".includes(s)) size += 85;
-    else if ("aebdhnopqug#$L+<>=?_~FZT0123456789".includes(s)) size += 95;
-    else if ("BSPEAKVXY&UwNRCHD".includes(s)) size += 112;
-    else if ("QGOMm%W@".includes(s)) size += 135;
-    else size += 50;
+
+    if ("lij|' ".includes(s)) {
+      size += 37;
+    } else if ("![]fI.,:;/\\t".includes(s)) {
+      size += 50;
+    } else if ('`-(){}r"'.includes(s)) {
+      size += 60;
+    } else if ("*^zcsJkvxy".includes(s)) {
+      size += 85;
+    } else if ("aebdhnopqug#$L+<>=?_~FZT0123456789".includes(s)) {
+      size += 95;
+    } else if ("BSPEAKVXY&UwNRCHD".includes(s)) {
+      size += 112;
+    } else if ("QGOMm%W@".includes(s)) {
+      size += 135;
+    } else {
+      size += 50; // Default size for other characters
+    }
   }
   return (size * 6) / 1000.0;
 };
@@ -48,13 +58,14 @@ const processColor = (color) => {
 };
 
 // Generate and return the SVG code for the badge
-function svgBadge(label, shadow, opacity, swap, labelBGColor, countBGColor, labelTextColor, countTextColor, visits) {
+function svgBadge(label, shadowLabel, shadowCount, opacity, swap, labelBGColor, countBGColor, labelTextColor, countTextColor, visits) {
   // Format the given parameter values
   labelBGColor = processColor(labelBGColor);
   countBGColor = processColor(countBGColor);
   labelTextColor = processColor(labelTextColor);
   countTextColor = processColor(countTextColor);
-  shadow = typeof shadow === "boolean" ? (shadow ? "1" : "0") : shadow;
+  shadowLabel = shadowLabel === "1" ? "1" : shadowLabel;
+  shadowCount = shadowCount === "1" ? "1" : shadowCount;
   swap = typeof swap === "boolean" ? (swap ? "1" : "0") : swap;
   if (typeof opacity === "string") opacity = parseInt(opacity, 10);
 
@@ -66,26 +77,19 @@ function svgBadge(label, shadow, opacity, swap, labelBGColor, countBGColor, labe
   let countWidth = 10 + approxWidth(visits.toString()) * 10;
 
   // Text shadow template
-  let shadowTemplate =
-    shadow === "1"
-      ? `
-    <text transform="matrix(1.01 0 0 1 ${visitsWidth + 5.4} 14.1597)" fill="${shadowColor(
-          countBGColor,
-          countTextColor,
-          opacity
-        )}" font-family="poppins" font-size="10px">${visits}</text>
-    <text transform="matrix(1.01 0 0 1 4 14.1817)" fill="${shadowColor(
-      labelBGColor,
-      labelTextColor,
-      opacity
-    )}" font-family="poppins" font-size="10px">${label}</text>
-    `
-      : "";
+  let shadowTemplate = `
+      <text transform="matrix(1 0 0 1 ${visitsWidth + 4.9 + 0.5} 14)" fill="${
+    shadowCount == "1" ? shadowColor(countBGColor, countTextColor, opacity) : `#${shadowCount}`
+  }" font-family="poppins" font-size="10px">${visits}</text>
+      <text transform="matrix(1 0 0 1 5.5 14)" fill="${
+        shadowLabel == "1" ? shadowColor(labelBGColor, labelTextColor, opacity) : `#${shadowLabel}`
+      }" font-family="poppins" font-size="10px">${label}</text>
+    `;
 
   // Main SVG template
   let svg = `
     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 ${
-      visitsWidth + countWidth + 1.5
+      visitsWidth + countWidth - 1
     } 20" xml:space="preserve">
     <defs>
     <style>
@@ -98,15 +102,11 @@ function svgBadge(label, shadow, opacity, swap, labelBGColor, countBGColor, labe
 </style>
     </defs>
     <g id="badge">
-        <path fill="#${labelBGColor}" d="M46.11,20H3c-2.21,0-4-1.79-4-4V4c0-2.21,1.79-4,4-4h${visitsWidth - 3}V20z"/>
-        <path fill="#${countBGColor}" d="M46.11,20H${visitsWidth + countWidth - 2.5}c2.21,0,4-1.79,4-4V4c0-2.21-1.79-4-4-4H${visitsWidth}V20z"/>
+        <path fill="#${labelBGColor}" d="M46.11,20H4c-2.21,0-4-1.79-4-4V4c0-2.21,1.79-4,4-4h${visitsWidth - 3.5}V20z"/>
+        <path fill="#${countBGColor}" d="M46.11,20H${visitsWidth + countWidth - 4}c2.21,0,4-1.79,4-4V4c0-2.21-1.79-4-4-4H${visitsWidth + 0.5}V20z"/>
         ${shadowTemplate}
-        <text transform="matrix(1 0 0 1 ${visitsWidth + 5.4} ${
-    shadow === "1" ? "13.4559" : "13.8"
-  })" fill="#${countTextColor}" font-family="poppins" font-size="10px">${visits}</text>
-        <text transform="matrix(1 0 0 1 4 ${
-          shadow === "1" ? "13.4559" : "13.8"
-        })" fill="#${labelTextColor}" font-family="poppins" font-size="10px">${label}</text>
+        <text transform="matrix(1 0 0 1 ${visitsWidth + 4.9} 13.8)" fill="#${countTextColor}" font-family="poppins" font-size="10px">${visits}</text>
+        <text transform="matrix(1 0 0 1 5 13.8)" fill="#${labelTextColor}" font-family="poppins" font-size="10px">${label}</text>
     </g>
     </svg>
     `;
