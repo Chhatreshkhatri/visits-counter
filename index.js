@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const svgBadge = require("./svgBadge");
 // const { port, mongourl } = require('./config.json');
-
 require("dotenv").config();
 const port = process.env.PORT;
 const mongourl = process.env.MONGODB_URI;
@@ -11,7 +10,7 @@ const mongourl = process.env.MONGODB_URI;
 const app = express();
 app.use(express.json());
 app.use(cors());
-// app.use(express.static(__dirname + '/frontend/build'));
+app.use(express.static(__dirname + '/build'));
 
 // Initilize mongoDB connection
 const mongoose = require("mongoose");
@@ -53,6 +52,8 @@ async function processSVG(req, res) {
   res.setHeader("Content-Type", "image/svg+xml");
   res.send(svg);
 }
-
+// app.get('/', (req, res) => {
+//   res.sendFile(__dirname + '/index.html');
+// });
 app.get("/:uniqueID", (req, res) => processSVG(req, res));
 app.listen(port, () => console.log(`Ready on port ${port}.`));
