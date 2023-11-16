@@ -1,0 +1,26 @@
+{
+  "name": "astro",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build && npm run copy-dist",
+    "preview": "astro preview",
+    "astro": "astro",
+    "copy-dist": "cross-env npm run copy-dist-command",
+    "copy-dist-command": "node -e \"console.log(process.platform === 'win32' ? 'xcopy' : 'cp')\"",
+    "copy-dist-win": "xcopy dist ..\\ /E /Y",
+    "copy-dist-unix": "cp -r dist ../"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.3.1",
+    "@astrojs/tailwind": "^5.0.2",
+    "astro": "^3.5.4",
+    "tailwindcss": "^3.3.5",
+    "typescript": "^5.2.2"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
+  }
+}

@@ -10,7 +10,7 @@ const mongourl = process.env.MONGODB_URI;
 const app = express();
 app.use(express.json());
 app.use(cors());
-app.use(express.static(__dirname + '/build'));
+app.use(express.static(__dirname + '/astro/dist'));
 
 // Initilize mongoDB connection
 const mongoose = require("mongoose");

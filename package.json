@@ -1,6 +1,7 @@
 {
     "name": "visits-counter",
     "scripts": {
+        "postinstall": "cd astro && npm install && npm run build --f",
         "server": "node index.js"
     },
     "dependencies": {
