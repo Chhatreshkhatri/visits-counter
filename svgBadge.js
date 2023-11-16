@@ -3,7 +3,7 @@ const approxWidth = (str) => {
   let size = 0;
   for (let i = 0; i < str.length; i++) {
     let s = str[i];
-    if("abcdefghjkmnopqrstuvwxyz+<>=?_~*^".includes(s)) {
+    if("abcdefghjkmnopqrsuvwxyz+<>=?_~*^".includes(s)) {
       size += 93;
     }
     else if("ABCDEFGHJKMNOPQRSTUVWXYZ@0".includes(s)) {
@@ -11,6 +11,9 @@ const approxWidth = (str) => {
     }
     else if("23456789".includes(s)) {
       size += 102;
+    }
+    else if("t".includes(s)) {
+      size += 75;
     }
     else if("lL1 `-(){}![]fI.,:;/\\".includes(s)) {
       size += 60;
@@ -103,7 +106,7 @@ function svgBadge(label, shadowLabel, shadowCount, opacity, swap, labelBGColor, 
     </defs>
     <g id="badge">
         <path fill="#${labelBGColor}" d="M46.11,20H4c-2.21,0-4-1.79-4-4V4c0-2.21,1.79-4,4-4h${visitsWidth - 3.5}V20z"/>
-        <path fill="#${countBGColor}" d="M46.11,20H${visitsWidth + countWidth - 4}c2.21,0,4-1.79,4-4V4c0-2.21-1.79-4-4-4H${visitsWidth + 0.5}V20z"/>
+        <path fill="#${countBGColor}" d="M46.11,20H${visitsWidth + countWidth - 5}c2.21,0,4-1.79,4-4V4c0-2.21-1.79-4-4-4H${visitsWidth + 0.5}V20z"/>
         ${shadowTemplate}
         <text transform="matrix(1 0 0 1 ${visitsWidth + 4.9} 13.8)" fill="#${countTextColor}" font-family="poppins" font-size="10px">${visits}</text>
         <text transform="matrix(1 0 0 1 5 13.8)" fill="#${labelTextColor}" font-family="poppins" font-size="10px">${label}</text>
