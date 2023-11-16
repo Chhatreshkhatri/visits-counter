@@ -3,23 +3,23 @@ const approxWidth = (str) => {
   let size = 0;
   for (let i = 0; i < str.length; i++) {
     let s = str[i];
-
-    if ("lij|' ".includes(s)) {
-      size += 37;
-    } else if ("![]fI.,:;/\\t".includes(s)) {
-      size += 50;
-    } else if ('`-(){}r"'.includes(s)) {
+    if("abcdefghjkmnopqrstuvwxyz+<>=?_~*^".includes(s)) {
+      size += 93;
+    }
+    else if("ABCDEFGHJKMNOPQRSTUVWXYZ@0".includes(s)) {
+      size += 105;
+    }
+    else if("23456789".includes(s)) {
+      size += 102;
+    }
+    else if("lL1 `-(){}![]fI.,:;/\\".includes(s)) {
       size += 60;
-    } else if ("*^zcsJkvxy".includes(s)) {
-      size += 85;
-    } else if ("aebdhnopqug#$L+<>=?_~FZT0123456789".includes(s)) {
-      size += 95;
-    } else if ("BSPEAKVXY&UwNRCHD".includes(s)) {
-      size += 112;
-    } else if ("QGOMm%W@".includes(s)) {
-      size += 135;
-    } else {
-      size += 50; // Default size for other characters
+    }
+    else if("iI|'".includes(s)) {
+      size += 45;
+    }
+    else{
+      size += 65;
     }
   }
   return (size * 6) / 1000.0;
