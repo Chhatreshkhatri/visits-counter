@@ -2,7 +2,8 @@
     "name": "visits-counter",
     "scripts": {
         "postinstall": "cd react-app && npm install && npm run build --f",
-        "server": "node index.js"
+        "site": "cd react-app && npm run start",
+        "server": "nodemon index.js"
     },
     "dependencies": {
         "dotenv": "^16.3.1",

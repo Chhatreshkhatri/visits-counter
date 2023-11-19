@@ -3,55 +3,41 @@ const approxWidth = (str) => {
   let size = 0;
   for (let i = 0; i < str.length; i++) {
     let s = str[i];
-    if("abcdefghjkmnopqrsuvwxyz+<>=?_~*^".includes(s)) {
-      size += 93;
-    }
-    else if("ABCDEFGHJKMNOPQRSTUVWXYZ@0".includes(s)) {
+    if ("Wm@".includes(s)) {
+      size += 168;
+    } else if ("M".includes(s)) {
+      size += 150;
+    } else if ("w".includes(s)) {
+      size += 140;
+    } else if ("OQ".includes(s)) {
+      size += 130;
+    } else if ("CG".includes(s)) {
+      size += 127;
+    } else if ("DHN".includes(s)) {
+      size += 119;
+    } else if ("AUVdgpq".includes(s)) {
+      size += 115;
+    } else if (" Xabhnou0".includes(s)) {
+      size += 110;
+    } else if ("BKRe45689".includes(s)) {
       size += 105;
-    }
-    else if("23456789".includes(s)) {
-      size += 102;
-    }
-    else if("t".includes(s)) {
+    } else if ("PSYcy3 ".includes(s)) {
+      size += 100;
+    } else if ("JTZv27".includes(s)) {
+      size += 95;
+    } else if ("EFksxz".includes(s)) {
+      size += 88;
+    } else if ("L".includes(s)) {
       size += 75;
-    }
-    else if("lL1 `-(){}![]fI.,:;/\\".includes(s)) {
-      size += 60;
-    }
-    else if("iI|'".includes(s)) {
-      size += 45;
-    }
-    else{
+    } else if ("rt".includes(s)) {
       size += 65;
+    } else if ("f1;".includes(s)) {
+      size += 55;
+    } else if ("Iijl.:'".includes(s)) {
+      size += 45;
     }
   }
   return (size * 6) / 1000.0;
-};
-
-// Get the lightness percentage of any given color
-function lightness(hex) {
-  let result = /([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  let r = parseInt(result[1], 16) / 255;
-  let g = parseInt(result[2], 16) / 255;
-  let b = parseInt(result[3], 16) / 255;
-  let max = Math.max(r, g, b),
-    min = Math.min(r, g, b);
-  let l = Math.round((max + min) * 50);
-  return l;
-}
-
-// Generate the shadow color when black or white depending upon relative
-// lightness of bg and text color is mixed in with the bgColor. This is used
-// instead of opacity as multiple texts with the shadowColor are added a little
-// below one another to create a solid long shadow
-const shadowColor = (bgColor, textColor, opacity) => {
-  let base = lightness(bgColor) > lightness(textColor) ? 0xff : 0x00;
-  let a = opacity / 100;
-  let r = Math.floor(base * a + Number(`0x${bgColor.substring(0, 2)}`) * (1 - a));
-  let g = Math.floor(base * a + Number(`0x${bgColor.substring(2, 4)}`) * (1 - a));
-  let b = Math.floor(base * a + Number(`0x${bgColor.substring(4, 6)}`) * (1 - a));
-  const finalColor = "#" + ((r << 16) | (g << 8) | b).toString(16);
-  return finalColor;
 };
 
 // Strip the # in the color code if present
@@ -63,12 +49,12 @@ const processColor = (color) => {
 // Generate and return the SVG code for the badge
 function svgBadge(label, shadowLabel, shadowCount, opacity, swap, labelBGColor, countBGColor, labelTextColor, countTextColor, visits) {
   // Format the given parameter values
+  shadowLabel=processColor(shadowLabel);
+  shadowCount=processColor(shadowCount);
   labelBGColor = processColor(labelBGColor);
   countBGColor = processColor(countBGColor);
   labelTextColor = processColor(labelTextColor);
   countTextColor = processColor(countTextColor);
-  shadowLabel = shadowLabel === "1" ? "1" : shadowLabel;
-  shadowCount = shadowCount === "1" ? "1" : shadowCount;
   swap = typeof swap === "boolean" ? (swap ? "1" : "0") : swap;
   if (typeof opacity === "string") opacity = parseInt(opacity, 10);
 
@@ -81,11 +67,11 @@ function svgBadge(label, shadowLabel, shadowCount, opacity, swap, labelBGColor, 
 
   // Text shadow template
   let shadowTemplate = `
-      <text transform="matrix(1 0 0 1 ${visitsWidth + 4.9 + 0.5} 14)" fill="${
-    shadowCount == "1" ? shadowColor(countBGColor, countTextColor, opacity) : `#${shadowCount}`
+      <text transform="matrix(1 0 0 1 ${visitsWidth + 4.9 + 0.25} 14)" fill="${
+    shadowCount === "1" ? `#000` : `#${shadowCount}`
   }" font-family="poppins" font-size="10px">${visits}</text>
-      <text transform="matrix(1 0 0 1 5.5 14)" fill="${
-        shadowLabel == "1" ? shadowColor(labelBGColor, labelTextColor, opacity) : `#${shadowLabel}`
+      <text transform="matrix(1 0 0 1 5.25 14)" fill="${
+        shadowLabel === "1" ? `#000` : `#${shadowLabel}`
       }" font-family="poppins" font-size="10px">${label}</text>
     `;
 

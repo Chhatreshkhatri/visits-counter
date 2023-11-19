@@ -1,7 +1,5 @@
 const express = require("express");
-// const cors = require("cors");
 const svgBadge = require("./svgBadge");
-// const { port, mongourl } = require('./config.json');
 require("dotenv").config();
 const port = process.env.PORT;
 const mongourl = process.env.MONGODB_URI;
@@ -9,8 +7,7 @@ const mongourl = process.env.MONGODB_URI;
 // Create an express instance and setup middlewares
 const app = express();
 app.use(express.json());
-// app.use(cors());
-app.use(express.static(__dirname + '/react-app/build'));
+app.use(express.static(__dirname + "/react-app/build"));
 
 // Initilize mongoDB connection
 const mongoose = require("mongoose");
@@ -20,6 +17,13 @@ mongoose
   .then(() => console.log("Connected to MongoDB."))
   .catch((err) => console.log("Unable to connect to MongoDB.\nError: " + err));
 
+// CORS middleware
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://*.chhatreshkhatri.com"); // Replace '*' with the actual origin of your client
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  next();
+});
 // Disable caching
 app.use(function (req, res, next) {
   res.header("Cache-Control", "private, no-cache, no-store, must-revaluniqueIDate");
