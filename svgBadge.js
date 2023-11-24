@@ -42,8 +42,8 @@ function svgBadge(label, shadowLabel, shadowCount, opacity, swap, labelBGColor, 
 
   // Text shadow template
   let shadowTemplate = `
-      <text transform="matrix(1 0 0 1 ${visitsWidth + 4.9 + 0.25} 14)" fill="${shadowCount === "1" ? `#000` : `#${shadowCount}`}" >${visits}</text>
-      <text transform="matrix(1 0 0 1 5.25 14)" fill="${shadowLabel === "1" ? `#000` : `#${shadowLabel}`}" >${label}</text>
+      <text transform="matrix(1 0 0 1 ${visitsWidth + 4.9 + 0.5} 14)" fill="${shadowCount === "1" ? `#000` : `#${shadowCount}`}" >${visits}</text>
+      <text transform="matrix(1 0 0 1 5.5 14)" fill="${shadowLabel === "1" ? `#000` : `#${shadowLabel}`}" >${label}</text>
     `;
 
   // Main SVG template
