@@ -29,8 +29,8 @@ async function processSVG(req, res) {
   // Get values from query and parameter
   const labelBGColor = req.query.LBGC || "484848";
   const countBGColor = req.query.CBGC || "1CA2F1";
-  const labelTextColor = req.query.LTC || "currentColor";
-  const countTextColor = req.query.CTC || "currentColor";
+  const labelTextColor = req.query.LTC || "ffffff";
+  const countTextColor = req.query.CTC || "ffffff";
   const shadowLabel = req.query.LSHW || "1";
   const shadowCount = req.query.CSHW || "1";
   const shadowOpacity = req.query.SHWO || "30";
@@ -47,7 +47,7 @@ async function processSVG(req, res) {
   let svg = svgBadge(label, shadowLabel, shadowCount, shadowOpacity, swap, labelBGColor, countBGColor, labelTextColor, countTextColor, visits);
 
   // Send the SVG Badge
-  const allowedOrigin=["https://*.chhatreshkhatri.com","http://localhost:4321"]
+  const allowedOrigin = ["https://*.chhatreshkhatri.com", "http://localhost:4321"];
   const origin = req.headers.origin;
 
   if (allowedOrigin.includes(origin)) {
