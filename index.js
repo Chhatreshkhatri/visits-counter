@@ -17,13 +17,6 @@ mongoose
   .then(() => console.log("Connected to MongoDB."))
   .catch((err) => console.log("Unable to connect to MongoDB.\nError: " + err));
 
-// CORS middleware
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://*.chhatreshkhatri.com"); // Replace '*' with the actual origin of your client
-  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
-  next();
-});
 // Disable caching
 app.use(function (req, res, next) {
   res.header("Cache-Control", "private, no-cache, no-store, must-revaluniqueIDate");
@@ -36,8 +29,8 @@ async function processSVG(req, res) {
   // Get values from query and parameter
   const labelBGColor = req.query.LBGC || "484848";
   const countBGColor = req.query.CBGC || "1CA2F1";
-  const labelTextColor = req.query.LTC || "FFFFFF";
-  const countTextColor = req.query.CTC || "FFFFFF";
+  const labelTextColor = req.query.LTC || "currentColor";
+  const countTextColor = req.query.CTC || "currentColor";
   const shadowLabel = req.query.LSHW || "1";
   const shadowCount = req.query.CSHW || "1";
   const shadowOpacity = req.query.SHWO || "30";
@@ -54,14 +47,14 @@ async function processSVG(req, res) {
   let svg = svgBadge(label, shadowLabel, shadowCount, shadowOpacity, swap, labelBGColor, countBGColor, labelTextColor, countTextColor, visits);
 
   // Send the SVG Badge
+  const allowedOrigin=["https://*.chhatreshkhatri.com","http://localhost:4321"]
+  const origin = req.headers.origin;
+
+  if (allowedOrigin.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
   res.setHeader("Content-Type", "image/svg+xml");
   res.send(svg);
 }
-// app.get('/', (req, res) => {
-//   res.sendFile(__dirname + '/index.html');
-// });
 app.get("/:uID", (req, res) => processSVG(req, res));
 app.listen(port, () => console.log(`Ready on port ${port}.`));
-app.get("/fonts/PoppinsBold.woff2", (req, res) => {
-  res.sendFile(path.join(__dirname, "/astro/src/fonts/PoppinsBold.woff2"));
-});
