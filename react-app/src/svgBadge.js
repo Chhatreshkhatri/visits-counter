@@ -4,39 +4,14 @@ const approxWidth = (str) => {
   let size = 0;
   for (let i = 0; i < str.length; i++) {
     let s = str[i];
-    if ("Wm@".includes(s)) {
-      size += 168;
-    } else if ("M".includes(s)) {
-      size += 150;
-    } else if ("w".includes(s)) {
-      size += 140;
-    } else if ("OQ".includes(s)) {
-      size += 130;
-    } else if ("CG".includes(s)) {
-      size += 127;
-    } else if ("DHN".includes(s)) {
-      size += 119;
-    } else if ("AUVdgpq".includes(s)) {
-      size += 115;
-    } else if (" Xabhnou0".includes(s)) {
-      size += 110;
-    } else if ("BKRe45689".includes(s)) {
-      size += 105;
-    } else if ("PSYcy3 ".includes(s)) {
-      size += 100;
-    } else if ("JTZv27".includes(s)) {
-      size += 95;
-    } else if ("EFksxz".includes(s)) {
-      size += 88;
-    } else if ("L".includes(s)) {
-      size += 75;
-    } else if ("rt".includes(s)) {
-      size += 65;
-    } else if ("f1;".includes(s)) {
-      size += 55;
-    } else if ("Iijl.:'".includes(s)) {
-      size += 45;
-    }
+    if ("lij|' ".includes(s)) size += 37;
+    else if ("![]fI.,:;/\\t".includes(s)) size += 50;
+    else if ('`-(){}r"'.includes(s)) size += 60;
+    else if ("*^zcsJkvxy".includes(s)) size += 85;
+    else if ("aebdhnopqug#$L+<>=?_~FZT0123456789".includes(s)) size += 95;
+    else if ("BSPEAKVXY&UwNRCHD".includes(s)) size += 112;
+    else if ("QGOMm%W@".includes(s)) size += 135;
+    else size += 50;
   }
   return (size * 6) / 1000.0;
 };
@@ -95,18 +70,7 @@ const SvgBadge = ({
       height={60}
       viewBox={`0 0 ${visitsWidth + countWidth - 1} 20`}
       xmlSpace="preserve">
-      <g id="badge" fontFamily="poppins" fontSize={10}>
-        <defs>
-          <style>
-            {`@font-face {
-          font-family: "poppins";
-          src: url("./fonts/Poppins.woff2") format("woff2");
-          font-weight: normal;
-          font-style: normal;
-        }`}
-          </style>
-        </defs>
-
+      <g id="badge" fontFamily="Arial" fontSize={10}>
         <path fill={`#${labelBGColor}`} d={`M46.11,20H4c-2.21,0-4-1.79-4-4V4c0-2.21,1.79-4,4-4h${visitsWidth - 3.5}V20z`} />
         <path
           fill={`#${countBGColor}`}

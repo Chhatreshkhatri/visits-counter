@@ -13,11 +13,14 @@ const MyForm = () => {
     labelTextColor: "FFFFFF",
     countTextColor: "FFFFFF",
     visits: "1",
-    passKey: "",
+    passKey: "passKey",
     setCount: "1",
   });
 
   const [isButtonHovered, setIsButtonHovered] = useState(false);
+  const [generatedLink, setGeneratedLink] = useState("");
+  const [copyLink, setCopyLink] = useState("");
+  const [showGeneratedImage, setShowGeneratedImage] = useState(false);
 
   const handleButtonHover = () => {
     setIsButtonHovered(true);
@@ -29,14 +32,24 @@ const MyForm = () => {
 
   useEffect(() => {
     console.log("Form state updated:", formState);
+    setGeneratedLink(generateLink(formState));
   }, [formState]);
 
+  const generateCopyLink = (formData) => {
+    return `https://visits.chhatreshkhatri.com/${formData.label}?label=${formData.label}&shadowLabel=${formData.shadowLabelColor}&shadowCount=${formData.shadowCountColor}&opacity=${formData.opacity}&swap=${formData.swap}&labelBG=${formData.labelBGColor}&countBG=${formData.countBGColor}&labelText=${formData.labelTextColor}&countText=${formData.countTextColor}&visits=${formData.visits}&passKey=${formData.passKey}&setCount=${formData.setCount}`;
+  };
+
+  const handleGenerateLink = () => {
+    setGeneratedLink(generateLink(formState));
+    setCopyLink(generateCopyLink(formState));
+    setShowGeneratedImage(true);
+  };
+
   const handleCopyLink = () => {
-    const link = generateLink(formState);
     navigator.clipboard
-      .writeText(link)
+      .writeText(copyLink)
       .then(() => {
-        console.log("Link copied to clipboard:", link);
+        console.log("Link copied to clipboard:", copyLink);
       })
       .catch((err) => {
         console.error("Error copying link to clipboard:", err);
@@ -44,13 +57,12 @@ const MyForm = () => {
   };
 
   const generateLink = (formData) => {
-    return `https://example.com/?label=${formData.label}&shadowLabel=${formData.shadowLabelColor}&...`;
+    return `https://visits.chhatreshkhatri.com/${formData.label}?label=${formData.label}&shadowLabel=${formData.shadowLabelColor}&shadowCount=${formData.shadowCountColor}&opacity=${formData.opacity}&swap=${formData.swap}&labelBG=${formData.labelBGColor}&countBG=${formData.countBGColor}&labelText=${formData.labelTextColor}&countText=${formData.countTextColor}&visits=${formData.visits}&passKey=${formData.passKey}&setCount=${formData.setCount}`;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formState);
-    handleCopyLink(); // Copy link when form is submitted
+    handleGenerateLink();
   };
 
   return (
@@ -89,16 +101,28 @@ const MyForm = () => {
           ))}
         </form>
       </div>
-      {/* Submit button */}
-      <div className="w-full col-span-2 flex flex-col items-center justify-center" onMouseEnter={handleButtonHover} onMouseLeave={handleButtonLeave}>
-        <button
-          type="button"
-          onClick={handleCopyLink}
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2 focus:outline-none focus:shadow-outline">
-          Copy Link
-        </button>
-        <div className="text-sm text-gray-500" style={{ visibility: isButtonHovered ? "visible" : "hidden" }}>
-          {generateLink(formState)}
+      {/* Generate and Copy buttons */}
+      <div className="w-full col-span-2 flex flex-col">
+        <div className="flex items-center justify-center">
+          <button
+            type="button"
+            onClick={handleGenerateLink}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded p-2 focus:outline-none focus:shadow-outline whitespace-nowrap">
+            Generate Link
+          </button>
+          {showGeneratedImage && <img src={generatedLink} alt="Generated link" className=" h-12 m-2" />}
+        </div>
+
+        <div className="flex flex-col items-center">
+          <button
+            type="button"
+            onClick={handleCopyLink}
+            className="bg-green-500 hover:bg-green-700 text-white font-bold p-2 rounded mt-2 focus:outline-none focus:shadow-outline"
+            onMouseEnter={handleButtonHover}
+            onMouseLeave={handleButtonLeave}>
+            Copy Link
+          </button>
+          {isButtonHovered && <div className="text-sm text-gray-500 whitespace-nowrap">{copyLink}</div>}
         </div>
       </div>
     </div>
