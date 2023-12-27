@@ -36,7 +36,7 @@ const MyForm = () => {
   }, [formState]);
 
   const generateCopyLink = (formData) => {
-    return `https://visits.chhatreshkhatri.com/${formData.label}?label=${formData.label}&shadowLabel=${formData.shadowLabelColor}&shadowCount=${formData.shadowCountColor}&opacity=${formData.opacity}&swap=${formData.swap}&labelBG=${formData.labelBGColor}&countBG=${formData.countBGColor}&labelText=${formData.labelTextColor}&countText=${formData.countTextColor}&visits=${formData.visits}&passKey=${formData.passKey}&setCount=${formData.setCount}`;
+    return `https://visits.chhatreshkhatri.com/${formData.label}?label=${formData.label}&LSHW=${formData.shadowLabelColor}&CSHW=${formData.shadowCountColor}&SHWO=${formData.opacity}&swap=${formData.swap}&LBGC=${formData.labelBGColor}&CBGC=${formData.countBGColor}&LTC=${formData.labelTextColor}&CTC=${formData.countTextColor}`;
   };
 
   const handleGenerateLink = () => {
@@ -57,7 +57,7 @@ const MyForm = () => {
   };
 
   const generateLink = (formData) => {
-    return `https://visits.chhatreshkhatri.com/${formData.label}?label=${formData.label}&shadowLabel=${formData.shadowLabelColor}&shadowCount=${formData.shadowCountColor}&opacity=${formData.opacity}&swap=${formData.swap}&labelBG=${formData.labelBGColor}&countBG=${formData.countBGColor}&labelText=${formData.labelTextColor}&countText=${formData.countTextColor}&visits=${formData.visits}&passKey=${formData.passKey}&setCount=${formData.setCount}`;
+    return `https://visits.chhatreshkhatri.com/${formData.label}?label=${formData.label}&LSHW=${formData.shadowLabelColor}&CSHW=${formData.shadowCountColor}&SHWO=${formData.opacity}&swap=${formData.swap}&LBGC=${formData.labelBGColor}&CBGC=${formData.countBGColor}&LTC=${formData.labelTextColor}&CTC=${formData.countTextColor}&visits=${formData.visits}&PK=${formData.passKey}&SETC=${formData.setCount}`;
   };
 
   const handleSubmit = (e) => {
