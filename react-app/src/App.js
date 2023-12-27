@@ -4,15 +4,14 @@ import SvgBadge from "./svgBadge";
 const MyForm = () => {
   const [formState, setFormState] = useState({
     label: "Visits",
-    shadowLabelColor: "00000000",
-    shadowCountColor: "00000000",
+    shadowLabelColor: "000000",
+    shadowCountColor: "000000",
     opacity: "30",
     swap: "0",
     labelBGColor: "484848",
     countBGColor: "1CA2F1",
     labelTextColor: "FFFFFF",
     countTextColor: "FFFFFF",
-    visits: "1",
     passKey: "passKey",
     setCount: "1",
   });
@@ -57,7 +56,7 @@ const MyForm = () => {
   };
 
   const generateLink = (formData) => {
-    return `https://visits.chhatreshkhatri.com/${formData.label}?label=${formData.label}&LSHW=${formData.shadowLabelColor}&CSHW=${formData.shadowCountColor}&SHWO=${formData.opacity}&swap=${formData.swap}&LBGC=${formData.labelBGColor}&CBGC=${formData.countBGColor}&LTC=${formData.labelTextColor}&CTC=${formData.countTextColor}&visits=${formData.visits}&PK=${formData.passKey}&SETC=${formData.setCount}`;
+    return `https://visits.chhatreshkhatri.com/${formData.label}?label=${formData.label}&LSHW=${formData.shadowLabelColor}&CSHW=${formData.shadowCountColor}&SHWO=${formData.opacity}&swap=${formData.swap}&LBGC=${formData.labelBGColor}&CBGC=${formData.countBGColor}&LTC=${formData.labelTextColor}&CTC=${formData.countTextColor}&PK=${formData.passKey}&SETC=${formData.setCount}`;
   };
 
   const handleSubmit = (e) => {
@@ -78,27 +77,155 @@ const MyForm = () => {
           countBGColor={formState.countBGColor}
           labelTextColor={formState.labelTextColor}
           countTextColor={formState.countTextColor}
-          visits={formState.visits}
+          visits={formState.setCount}
         />
       </div>
       <div className="flex">
-        <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4 max-w-[320px]">
-          {/* Render input fields dynamically */}
-          {Object.entries(formState).map(([fieldName, fieldValue]) => (
-            <div key={fieldName} className="flex flex-col">
-              <label className="text-gray-700 text-sm font-bold w-24" htmlFor={fieldName}>
-                {fieldName.charAt(0).toUpperCase() + fieldName.slice(1)}:
-              </label>
-              <input
-                type="text"
-                id={fieldName}
-                name={fieldName}
-                value={fieldValue}
-                className="shadow w-[150px] appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                onChange={(e) => setFormState((prevState) => ({ ...prevState, [fieldName]: e.target.value }))}
+        <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4 max-w-[320px] whitespace-nowrap">
+          <div className="flex flex-col">
+            <label className="text-gray-700 text-sm font-bold w-24" htmlFor={"label"}>
+              Label / Unique ID:
+            </label>
+            <input
+              type="text"
+              id={"label"}
+              name={"label"}
+              value={formState.label}
+              className="shadow w-[150px] appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              onChange={(e) => setFormState((prevState) => ({ ...prevState, label: e.target.value }))}
               />
-            </div>
-          ))}
+          </div>
+          <div className="flex flex-col">
+            <label className="text-gray-700 text-sm font-bold w-24" htmlFor={"shadowLabelColor"}>
+            Shadow Label Color:
+            </label>
+            <input
+              type="text"
+              id={"shadowLabelColor"}
+              name={"shadowLabelColor"}
+              value={formState.shadowLabelColor}
+              className="shadow w-[150px] appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              onChange={(e) => setFormState((prevState) => ({ ...prevState, shadowLabelColor: e.target.value }))}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="text-gray-700 text-sm font-bold w-24" htmlFor={"shadowCountColor"}>
+            Shadow Count Color:
+            </label>
+            <input
+              type="text"
+              id={"shadowCountColor"}
+              name={"shadowCountColor"}
+              value={formState.shadowCountColor}
+              className="shadow w-[150px] appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              onChange={(e) => setFormState((prevState) => ({ ...prevState, shadowCountColor: e.target.value }))}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="text-gray-700 text-sm font-bold w-24" htmlFor={"opacity"}>
+              Opacity:
+            </label>
+            <input
+              type="text"
+              id={"opacity"}
+              name={"opacity"}
+              value={formState.opacity}
+              className="shadow w-[150px] appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              onChange={(e) => setFormState((prevState) => ({ ...prevState, opacity: e.target.value }))}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="text-gray-700 text-sm font-bold w-24" htmlFor={"swap"}>
+              Swap:
+            </label>
+            <input
+              type="text"
+              id={"swap"}
+              name={"swap"}
+              value={formState.swap}
+              className="shadow w-[150px] appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              onChange={(e) => setFormState((prevState) => ({ ...prevState, swap: e.target.value }))}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="text-gray-700 text-sm font-bold w-24" htmlFor={"labelBGColor"}>
+              Label BG Color:
+            </label>
+            <input
+              type="text"
+              id={"labelBGColor"}
+              name={"labelBGColor"}
+              value={formState.labelBGColor}
+              className="shadow w-[150px] appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              onChange={(e) => setFormState((prevState) => ({ ...prevState, labelBGColor: e.target.value }))}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="text-gray-700 text-sm font-bold w-24" htmlFor={"countBGColor"}>
+              Count BG Color:
+            </label>
+            <input
+              type="text"
+              id={"countBGColor"}
+              name={"countBGColor"}
+              value={formState.countBGColor}
+              className="shadow w-[150px] appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              onChange={(e) => setFormState((prevState) => ({ ...prevState, countBGColor: e.target.value }))}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="text-gray-700 text-sm font-bold w-24" htmlFor={"labelTextColor"}>
+              Label Text Color:
+            </label>
+            <input
+              type="text"
+              id={"labelTextColor"}
+              name={"labelTextColor"}
+              value={formState.labelTextColor}
+              className="shadow w-[150px] appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              onChange={(e) => setFormState((prevState) => ({ ...prevState, labelTextColor: e.target.value }))}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="text-gray-700 text-sm font-bold w-24" htmlFor={"countTextColor"}>
+              Count Text Color:
+            </label>
+            <input
+              type="text"
+              id={"countTextColor"}
+              name={"countTextColor"}
+              value={formState.countTextColor}
+              className="shadow w-[150px] appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              onChange={(e) => setFormState((prevState) => ({ ...prevState, countTextColor: e.target.value }))}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="text-gray-700 text-sm font-bold w-24" htmlFor={"passKey"}>
+              Pass Key:
+            </label>
+            <input
+              type="text"
+              id={"passKey"}
+              name={"passKey"}
+              value={formState.passKey}
+              className="shadow w-[150px] appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              onChange={(e) => setFormState((prevState) => ({ ...prevState, passKey: e.target.value }))}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="text-gray-700 text-sm font-bold w-24" htmlFor={"setCount"}>
+              Set Count:
+            </label>
+            <input
+              type="text"
+              id={"setCount"}
+              name={"setCount"}
+              value={formState.setCount}
+              className="shadow w-[150px] appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              onChange={(e) => setFormState((prevState) => ({ ...prevState, setCount: e.target.value }))}
+            />
+          </div>
+
         </form>
       </div>
       {/* Generate and Copy buttons */}
