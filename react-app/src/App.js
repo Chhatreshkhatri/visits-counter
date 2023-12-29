@@ -3,6 +3,7 @@ import SvgBadge from "./svgBadge";
 
 const MyForm = () => {
   const [formState, setFormState] = useState({
+    uniqueID: "unique ID",
     label: "Visits",
     shadowLabelColor: "000000",
     shadowCountColor: "000000",
@@ -12,7 +13,7 @@ const MyForm = () => {
     countBGColor: "1CA2F1",
     labelTextColor: "FFFFFF",
     countTextColor: "FFFFFF",
-    passKey: "passKey",
+    passKey: "pass Key",
     setCount: "1",
   });
 
@@ -35,7 +36,7 @@ const MyForm = () => {
   }, [formState]);
 
   const generateCopyLink = (formData) => {
-    return `https://visits.chhatreshkhatri.com/${formData.label}?label=${formData.label}&LSHW=${formData.shadowLabelColor}&CSHW=${formData.shadowCountColor}&SHWO=${formData.opacity}&swap=${formData.swap}&LBGC=${formData.labelBGColor}&CBGC=${formData.countBGColor}&LTC=${formData.labelTextColor}&CTC=${formData.countTextColor}`;
+    return `https://visits.chhatreshkhatri.com/${formData.uniqueID}?label=${formData.label}&LSHW=${formData.shadowLabelColor}&CSHW=${formData.shadowCountColor}&SHWO=${formData.opacity}&swap=${formData.swap}&LBGC=${formData.labelBGColor}&CBGC=${formData.countBGColor}&LTC=${formData.labelTextColor}&CTC=${formData.countTextColor}`;
   };
 
   const handleGenerateLink = () => {
@@ -56,7 +57,7 @@ const MyForm = () => {
   };
 
   const generateLink = (formData) => {
-    return `https://visits.chhatreshkhatri.com/${formData.label}?label=${formData.label}&LSHW=${formData.shadowLabelColor}&CSHW=${formData.shadowCountColor}&SHWO=${formData.opacity}&swap=${formData.swap}&LBGC=${formData.labelBGColor}&CBGC=${formData.countBGColor}&LTC=${formData.labelTextColor}&CTC=${formData.countTextColor}&PK=${formData.passKey}&SETC=${formData.setCount}`;
+    return `https://visits.chhatreshkhatri.com/${formData.uniqueID}?label=${formData.label}&LSHW=${formData.shadowLabelColor}&CSHW=${formData.shadowCountColor}&SHWO=${formData.opacity}&swap=${formData.swap}&LBGC=${formData.labelBGColor}&CBGC=${formData.countBGColor}&LTC=${formData.labelTextColor}&CTC=${formData.countTextColor}&PK=${formData.passKey}&SETC=${formData.setCount}`;
   };
 
   const handleSubmit = (e) => {
@@ -83,8 +84,21 @@ const MyForm = () => {
       <div className="flex">
         <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4 max-w-[320px] whitespace-nowrap">
           <div className="flex flex-col">
+            <label className="text-gray-700 text-sm font-bold w-24" htmlFor={"uniqueID"}>
+              Unique ID:
+            </label>
+            <input
+              type="text"
+              id={"uniqueID"}
+              name={"uniqueID"}
+              value={formState.uniqueID}
+              className="shadow w-[150px] appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              onChange={(e) => setFormState((prevState) => ({ ...prevState, uniqueID: e.target.value }))}
+              />
+          </div>
+          <div className="flex flex-col">
             <label className="text-gray-700 text-sm font-bold w-24" htmlFor={"label"}>
-              Label / Unique ID:
+              Label:
             </label>
             <input
               type="text"
